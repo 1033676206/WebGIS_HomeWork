@@ -1,48 +1,51 @@
 <template>
   <div class="login-page">
-    <!-- 顶部导航栏 - 使用第一张图的样式 -->
+    <!-- 顶部导航栏 -->
     <div class="top-bar">
-      <div class="top-inner">
-        <h1 class="webgis-title">华航WebGIS</h1>
-        <router-link to="/" class="back-to-home">返回主界面</router-link>
-      </div>
+      <h1极客 class="webgis-title">华航WebGIS</h1>
+      <router-link to="/" class="back-to-home">返回主界面</router-link>
     </div>
     
-    <!-- 登录容器 - 减少边距，使用第一张图的底图 -->
+    <!-- 登录容器 -->
     <div class="login-container">
       <div class="left-section">
-        <img src="https://s1.imagehub.cc/images/2023/10/08/100w0t000000ivz6p83BE.jpeg" alt="校园图片" />
+        <!-- 使用安全的图片引用方式 -->
+        <img src="../assets/pic/login_showImg.jpg" alt="校园图片" />
         <div class="welcome-text">
           <h2>Welcome to HuaHang WebGIS</h2>
         </div>
       </div>
       <div class="right-section">
         <h2>账号密码登录</h2>
-        <form @submit.prevent="login">
-          <!-- 修改输入框结构，解决标签重叠问题 -->
-          <div class="form-row">
-            <label for="username">用户:</label>
-            <input 
-              type="text" 
-              id="username" 
-              v-model.trim="username" 
-              required
-              placeholder="输入账号"
-            />
-          </div>
-          
-          <div class="form-row">
-            <label for="password">密码:</label>
-            <input 
-              type="password" 
-              id="password" 
-              v-model.trim="password" 
-              required
-              placeholder="输入密码"
-            />
-            <span class="password-toggle" @click="togglePasswordVisibility">
-              <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
-            </span>
+        <form @submit.prevent="login" class="login-form">
+          <!-- 添加包裹容器并设置垂直间距 -->
+          <div class="form-content">
+            <div class="form-row">
+              <label for="username">用户:</label>
+              <input 
+                type="text" 
+                id="username" 
+                v-model.trim="username" 
+                required
+                placeholder="输入账号"
+              />
+            </div>
+            
+            <div class="form-row">
+              <label for="password">密码:</label>
+              <div class="password-container">
+                <input 
+                  type="password" 
+                  id="password" 
+                  v-model.trim="password" 
+                  required
+                  placeholder="输入密码"
+                />
+                <span class="password-toggle" @click="togglePasswordVisibility">
+                  <i :class="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </span>
+              </div>
+            </div>
           </div>
           
           <div class="error-message" v-if="errorMessage">{{ errorMessage }}</div>
@@ -50,8 +53,12 @@
           <button type="submit">登录</button>
           
           <div class="bottom-links">
-            <p><router-link to="/forget">忘记密码？</router-link></p>
-            <p><router-link to="/register">新用户注册</router-link></p>
+            <div class="left-link">
+              <router-link to="/forget">忘记密码？</router-link>
+            </div>
+            <div class="right-link">
+              <router-link to="/register">新用户注册</router-link>
+            </div>
           </div>
         </form>
       </div>
@@ -127,28 +134,26 @@ export default {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  /* 使用第一张图的背景 */
   background-image: url('https://s1.imagehub.cc/images/2023/10/08/R-C.jpeg');
   background-size: cover;
   background-position: center;
   position: relative;
+  padding-top: 60px;
 }
 
-/* 顶部导航栏 - 使用第一张图的样式 */
+/* 顶部导航栏 */
 .top-bar {
-  background-color: #227700; /* 更接近第一张图的绿色 */
+  background-color: #227700;
   width: 100%;
-  padding: 15px 0;
-}
-
-.top-inner {
-  max-width: 1200px;
-  margin: 0 auto;
+  padding: 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 0 20px;
-  position: relative;
 }
 
 .webgis-title {
@@ -156,11 +161,8 @@ export default {
   font-size: 40px;
   color: white;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
-  /* 居中显示，不留白 */
-  width: 100%;
+  margin: 0 auto;
   text-align: center;
-  position: absolute;
-  left: 0;
 }
 
 .back-to-home {
@@ -168,94 +170,134 @@ export default {
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  padding: 8px 15px;
-  border-radius: 4px;
-  z-index: 10; /* 确保在标题上方 */
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 5px 10px;
+  border-radius: 3px;
+  background: rgba(255, 255, 255, 0.2);
+  transition: background 0.3s;
 }
 
-/* 减少整体边距 */
+.back-to-home:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+/* 登录容器 */
 .login-container {
   display: flex;
-  margin: 50px auto; /* 大幅减少上下边距 */
-  width: 900px;
-  max-width: 95%;
-  height: auto;
-  min-height: 500px;
-  background-color: rgba(255, 255, 255, 0.95); /* 半透明白色 */
+  max-width: 1000px;
+  width: 95%;
+  margin: 30px auto 20px auto;
+  background-color: white;
   border-radius: 8px;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   border: 1px solid rgba(0, 0, 0, 0.1);
+  min-height: 480px;
+  /* 添加垂直居中对齐 */
+  align-items: center;
 }
 
+/* 主要修改点：左侧部分下移 */
 .left-section {
-  flex: 1;
+  flex: 0 0 50%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start; /* 从顶部开始而不是居中 */
   align-items: center;
-  padding: 30px;
-  background: rgba(34, 119, 0, 0.1); /* 微弱的绿色背景 */
+  padding: 40px 25px 25px; /* 增加顶部内边距 */
+  background: rgba(34, 119, 0, 0.05);
+  margin-top: 30px; /* 添加顶部外边距使整体下移 */
 }
 
 .left-section img {
   width: 100%;
-  max-width: 280px;
-  height: auto;
-  border-radius: 8px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  max-height: 300px;
+  object-fit: cover;
+  border-radius: 5px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
   margin-bottom: 20px;
 }
 
 .welcome-text {
   text-align: center;
+  margin-top: auto; /* 使欢迎文本在左侧区域底部 */
 }
 
 .welcome-text h2 {
-  font-size: 24px;
+  font-size: 22px;
   color: #333;
-  margin-bottom: 10px;
+  margin: 0;
+  font-weight: 600;
 }
 
+/* 右侧部分微调使其与左侧高度匹配 */
 .right-section {
-  flex: 1;
+  flex: 0 0 50%;
   padding: 30px;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; /* 保持垂直居中 */
+  align-items: center;
 }
 
 .right-section h2 {
   text-align: center;
   color: #227700;
-  margin-bottom: 25px;
-  font-size: 26px;
+  margin-bottom: 20px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
-/* 输入框样式调整 - 解决重叠问题 */
-.form-row {
-  position: relative;
-  margin-bottom: 20px;
+/* 表单容器 */
+.login-form {
+  width: 100%;
   display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
+/* 添加的包裹容器 - 用于调整输入框位置 */
+.form-content {
+  margin-top: 20px; /* 使输入框整体下移 */
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+/* 输入框样式 */
+.form-row {
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: center; /* 使输入框居中靠拢 */
+}
+
 .form-row label {
-  display: block;
-  width: 70px; /* 固定标签宽度 */
+  width: 60px; 
+  text-align: right; 
+  padding-right: 10px; 
   color: #555;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 15px;
+}
+
+/* 密码容器 */
+.password-container {
+  position: relative;
+  display: inline-block;
 }
 
 input {
-  flex: 1;
-  height: 45px;
-  padding: 0 15px;
+  width: 200px;
+  height: 35px;
+  padding: 0 10px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 16px;
-  transition: all 0.3s ease;
+  font-size: 15px;
+  transition: all 0.2s ease;
 }
 
 input:focus {
@@ -267,7 +309,7 @@ input:focus {
 /* 密码可见性切换 */
 .password-toggle {
   position: absolute;
-  right: 15px;
+  right: 10px;
   top: 50%;
   transform: translateY(-50%);
   color: #777;
@@ -276,7 +318,7 @@ input:focus {
 }
 
 .error-message {
-  color: #e74c3c;
+  color: #极客 #e74c3c;
   font-size: 14px;
   margin: -10px 0 15px 0;
   text-align: center;
@@ -300,13 +342,13 @@ input:focus {
 }
 
 button {
-  width: 100%;
-  height: 45px;
+  width: 200px;
+  height: 40px;
   background: #227700;
   color: white;
   border: none;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 16极客 px;
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
@@ -317,16 +359,31 @@ button:hover {
   background: #1a6600;
 }
 
+/* 底部链接 - 均匀分布在登录按钮下方左右两侧 */
 .bottom-links {
+  width: 200px;
   display: flex;
   justify-content: space-between;
-  margin-top: 20px;
+  margin-top: 10px;
+}
+
+.left-link, .right-link {
+  width: 45%;
+  text-align: center;
+}
+
+.left-link {
+  text-align: left;
+}
+
+.right-link {
+  text-align: right;
 }
 
 .bottom-links a {
   color: #227700;
   text-decoration: none;
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 500;
   transition: all 0.3s ease;
 }
@@ -337,17 +394,18 @@ button:hover {
 
 .footer {
   text-align: center;
-  padding: 20px;
+  padding: 15px;
   color: white;
-  font-size: 14px;
-  background: rgba(0, 0, 0, 0.5);
+  font-size: 13px;
+  background: rgba(0, 0, 0, 0.6);
   margin-top: auto;
+  width: 100%;
 }
 
 .footer a {
   color: white;
   text-decoration: none;
-  font-weight: 600;
+  font-weight: 500;
 }
 
 .footer a:hover {
@@ -355,51 +413,72 @@ button:hover {
 }
 
 /* 响应式设计 */
-@media (max-width: 950px) {
-  .login-container {
-    width: 95%;
-    max-width: 700px;
-    flex-direction: column;
-    margin: 30px auto;
-  }
-  
-  .left-section, .right-section {
-    padding: 30px 20px;
-  }
-  
-  .left-section img {
-    max-width: 200px;
-  }
-}
-
-@media (max-width: 600px) {
-  .top-inner {
-    flex-direction: column;
-    padding: 10px;
-  }
-  
-  .webgis-title {
-    position: static;
-    margin-bottom: 10px;
-    font-size: 32px;
-  }
-  
+@media (max-width: 900px) {
   .login-container {
     flex-direction: column;
     margin: 20px auto;
   }
   
-  .form-row {
-    flex-direction: column;
-    align-items: flex-start;
+  .left-section, .right-section {
+    padding: 20px;
+    width: 100%;
   }
   
-  .form-row label {
-    margin-bottom: 5px;
+  .left-section {
+    margin-top: 0; /* 响应式中取消顶部外边距 */
+    padding-top: 30px;
+  }
+  
+  .left-section img {
+    max-width: 250px;
+    max-height: 200px;
+  }
+  
+  .right-section {
+    padding-top: 10px;
+  }
+  
+  .form-row, input, button, .bottom-links {
+    width: 100%;
+  }
+  
+  .password-container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 600px) {
+  .top-bar {
+    padding: 15px 10px;
+  }
+  
+  .webgis-title {
+    font-size: 32px;
+  }
+  
+  .back-to-home {
+    font-size: 14px;
+    padding: 3px 8px;
+    right: 10px;
   }
   
   input {
     width: 100%;
+  }
+  
+  .form-row label {
+    width: 50px;
+    text-align: left;
+  }
+  
+  .bottom-links {
+    flex-direction: column;
+  }
+  
+  .left-link, .right-link {
+    width: 100%;
+    text-align: center;
+    margin: 5px 0;
   }
 }
 </style>

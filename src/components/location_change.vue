@@ -11,7 +11,7 @@
                     <router-link to='/feedback' >学校历史</router-link>
               </div>
           </li>
-            <li>  <router-link to='/complex' >建制变迁</router-link></li>
+            <li>  <router-link to='/complex' >地理概览</router-link></li>
             <li><router-link to='/history'>校史文化标注</router-link></li>
             <li><router-link to='/schoolmate'>知名校友</router-link></li>
             <li> <router-link to='/feedback' >用户反馈</router-link></li>                         

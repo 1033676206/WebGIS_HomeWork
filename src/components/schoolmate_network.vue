@@ -7,7 +7,7 @@
       <nav class="nav-links">
         <ul>
           <li><router-link to="/location">学校历史</router-link></li>
-          <li><router-link to="/complex">建制变迁</router-link></li>
+          <li><router-link to="/complex">地理概览</router-link></li>
           <li><router-link to="/history">校史文化标注</router-link></li>
           <li>
             <dev class="schoolmate-option">
