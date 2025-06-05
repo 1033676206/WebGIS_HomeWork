@@ -2,7 +2,8 @@
   <div class="login-page">
     <!-- 顶部导航栏 -->
     <div class="top-bar">
-      <h1极客 class="webgis-title">华航WebGIS</h1>
+      <h1 class="webgis-title">华航WebGIS</h1>
+      <!-- <h1极客 class="webgis-title">华航WebGIS</h1> -->
       <router-link to="/" class="back-to-home">返回主界面</router-link>
     </div>
     
